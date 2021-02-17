@@ -1,5 +1,5 @@
 const users = require("../users/users-model")
-function logger(req,res,next){
+function logger(){
    // DO YOUR MAGIC
   return (req, res, next)=>{
     const time = new Date().toISOString()
@@ -7,13 +7,15 @@ function logger(req,res,next){
     next()
   }}
 
-function validateUserId(req, res, next) {
+function validateUserId() {
   // DO YOUR MAGIC
   return(req,res,next)=>{
     users.getById(req.params.id)
     .then((user)=>{
-      if(user){req.user=user
-        next()}else{
+      if(user){
+        req.user=user
+        next()}
+        else{
           res.status(400).json({
             message:"User not found"
           })
@@ -22,7 +24,7 @@ function validateUserId(req, res, next) {
   }
 }
 
-function validateUser(req, res, next) {
+function validateUser() {
   return(req,res,next)=>{
     if (!req.body){
       return res.status(400).json({message:"missing post data"})
@@ -34,7 +36,7 @@ function validateUser(req, res, next) {
   // DO YOUR MAGIC
 }
 
-function validatePost(req, res, next) {
+function validatePost() {
   // DO YOUR MAGIC
   return(req,res,next)=>{
     if (!req.body){
