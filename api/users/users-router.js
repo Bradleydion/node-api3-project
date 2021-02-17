@@ -56,7 +56,14 @@ router.put('/:id',validateUserId(),validatePost(), (req, res,next) => {
   })
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', validateUserId(),(req, res,next) => {users.remove(req.params.id)
+  .then((count)=>{
+    if (count >0){
+      res.json(count)
+    }
+  }).catch((error)=>{
+    next(error)
+  })
   // RETURN THE FRESHLY DELETED USER OBJECT
   // this needs a middleware to verify user id
 });
@@ -72,10 +79,19 @@ router.get('/:id/posts', validateUserId(),(req, res,next) => {
   })
 });
 
-router.post('/:id/posts', (req, res) => {
+router.post('/:id/posts',validateUserId(),validatePost(), (req, res, next) => {
+  const userID = req.params.id
+  var postBody = req.body
   // RETURN THE NEWLY CREATED USER POST
   // this needs a middleware to verify user id
   // and another middleware to check that the request body is valid
+  posts.insert(userID, postBody)
+  .then((newPost)=>{
+    console.log(newPost)
+    res.json(newPost)
+  }).catch((error)=>{
+    next(error)
+  })
 });
 
 // do not forget to export the router
