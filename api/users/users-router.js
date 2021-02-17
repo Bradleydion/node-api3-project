@@ -1,9 +1,24 @@
 const express = require('express');
+const users = require("./users-model")
+const { userParams, whereNotExists } = require('../../data/db-config');
+const {validateUserId,
+  validateUser,
+  validatePost}= require("../middleware/middleware")
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/',validateUserId(), (req, res,next) => {
   // RETURN AN ARRAY WITH ALL THE USERS
+  const options = {
+    sortBy: req.query.sortby,
+    limit: req.query.limit
+  }
+  users.get(options)
+  .then((users)=>{
+    res.status(200).json(users)
+  }).catch((error)=>{
+    next(error)
+  })
 });
 
 router.get('/:id', (req, res) => {
