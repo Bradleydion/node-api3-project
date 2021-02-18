@@ -1,8 +1,5 @@
 const express = require('express');
 const posts= require("./posts-model")
-const {validateUserId,
-  validateUser,
-  validatePost}= require("../middleware/middleware");
 const { post } = require('../users/users-router');
 
 
