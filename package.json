@@ -2,8 +2,8 @@
     "name": "node-api3-project",
     "version": "1.0.0",
     "scripts": {
-        "start": "node index.js",
         "watch": "nodemon --require dotenv/config index.js",
+        "start": "node index.js",
         "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand --silent"
     },
     "repository": {
