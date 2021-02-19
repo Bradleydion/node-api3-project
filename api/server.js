@@ -10,8 +10,8 @@ server.use(express.json())
 server.get('/', (req, res) => {
   res.send(`<h2>Let's write some middleware!</h2>`);
 });
-server.use(userRouter)
-server.use(postRouter)
+server.use('/users',userRouter)
+server.use('/posts',postRouter)
 
 // global middlewares and routes need to be connected here
 
